@@ -20,7 +20,7 @@ while 1:
         if not data : break
         datastringa = data.decode()
 
-        if datastringa == "ELENCO":
+        if datastringa == "LIST":
             lista = os.listdir(".")
             conn.send(str(lista).encode())
 
@@ -33,7 +33,7 @@ while 1:
             print("The position of the file is:", str(index))
 
             filedacifrare = lista[index]
-            print("The file to encript is:", filedacifrare)
+            print("The file to encrypt is:", filedacifrare)
 
             key = Fernet.generate_key()
             fernet = Fernet(key)
@@ -59,7 +59,7 @@ while 1:
             print("The position of the file is:", str(index))
 
             filedacifrare = lista[index]
-            print("The file to encript is:", filedacifrare)
+            print("The file to encrypt is:", filedacifrare)
 
             f = open(filedacifrare, "rb")
             message = f.read()
@@ -71,5 +71,5 @@ while 1:
             chiave_pubblica = rsa.PublicKey.load_pkcs1(public_key,
                                                        format='PEM')
             encMessage = rsa.encrypt(message, chiave_pubblica)
-            print("The encripted message through the public key is:", encMessage)
+            print("The encrypted message through the public key is:", encMessage)
             conn.send(encMessage)
