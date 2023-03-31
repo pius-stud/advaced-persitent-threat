@@ -7,7 +7,7 @@ PORT = 2018
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
-print("These are the possible commands: STOP, ELENCO, CIFRA SIMMETRICA e CIFRA ASIMMETRICA")
+print("These are the possible commands: STOP, ELENCO, Symmetric Cryptography e Asymmetric Cryptography")
 
 while 1:
     messaggio = input("Write a message:")
@@ -16,37 +16,37 @@ while 1:
     if (messaggio=="STOP"):
         break
 
-# Il comando ELENCO restituisce i file presenti all'interno della directory corrente del target
+# The command "ELENCO" returns a list of the file in the target's directory
     if (messaggio=="ELENCO"):
         messaggioRicevuto = s.recv(2048)
         files = eval(messaggioRicevuto)
-        print("File presenti:")
+        print("Files:")
         for i in files:
             print(i)
 
-    if (messaggio == "CIFRA SIMMETRICA"):
-        nomefile = input('Inserire nome file:')
+    if (messaggio == "Symmetric Cryptography"):
+        nomefile = input('Write the filename:')
         s.send(nomefile.encode())
         key = s.recv(1024)
         encMsg = s.recv(1024)
         message = encMsg.decode()
-        print("File cifrato: " + message)
+        print("Encripted file: " + message)
 
         fernet = Fernet(key)
 
         decMsg = fernet.decrypt(encMsg)
-        print("File decifrato: ", decMsg.decode())
+        print("Decrypted message: ", decMsg.decode())
 
-    if (messaggio == "CIFRA ASIMMETRICA"):
-        nomefile = input('Inserire nome file:')
+    if (messaggio == "Asymmetric Cryptography"):
+        nomefile = input('Write the filename:')
         s.send(nomefile.encode())
 
         publicKey, privateKey = rsa.newkeys(512)
         s.send(publicKey.save_pkcs1())
 
         message = s.recv(1024)
-        print("Il messaggio cifrato è:", message)
+        print("The encripted message is:", message)
         decr_message = rsa.decrypt(message, privateKey).decode()
-        print("Il messaggio decifrato è:", decr_message)
+        print("The decrypted message is:", decr_message)
 
 s.close()
