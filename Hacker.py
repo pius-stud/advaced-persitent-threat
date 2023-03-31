@@ -7,10 +7,10 @@ PORT = 2018
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((HOST, PORT))
 
-print("La lista di comandi da poter eseguire sono: STOP, ELENCO, CIFRA SIMMETRICA e CIFRA ASIMMETRICA")
+print("These are the possible commands: STOP, ELENCO, CIFRA SIMMETRICA e CIFRA ASIMMETRICA")
 
 while 1:
-    messaggio = input("Inserisci messaggio:")
+    messaggio = input("Write a message:")
     s.send(messaggio.encode())
 
     if (messaggio=="STOP"):
