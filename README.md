@@ -1,6 +1,6 @@
 # Advanced Perstitent Threat (APT)
 
-Here a proof of concept of an Advanced Persistent Thereat could be found.
+This is a proof of concept of an Advanced Persistent Threat.
 This is composed of different elements:
 - Client (or Hacker): this (script) could be exploited by the hacker to give commands to the system.
 - Command and Control center (CC): this is a bridge between the hacker and the target.
