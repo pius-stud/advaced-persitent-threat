@@ -23,18 +23,18 @@ while 1:
         if not data:
             break
         datastringa = data.decode()
-        print("Dati ricevuti: ", datastringa)
+        print("Received data: ", datastringa)
         socket_to_server.send(data)
 
 
-        if datastringa == "ELENCO":
-            print("Si trasferiscono i file presi nella directory del target")
+        if datastringa == "LIST":
+            print("The files taken in the target directory are transferred")
             dati_ricevuti_server = socket_to_server.recv(4028)
             dati_ricevuti = dati_ricevuti_server.decode()
-            print("Dati ricevuti dal server principale:", dati_ricevuti)
+            print("Data received from the main server:", dati_ricevuti)
             conn.send(dati_ricevuti_server)
 
-        if datastringa == "CIFRA SIMMETRICA":
+        if datastringa == "Symmetric Cryptography":
             nomefile = conn.recv(1024)
             socket_to_server.send(nomefile)
 
@@ -44,7 +44,7 @@ while 1:
             messaggio = socket_to_server.recv(1024)
             conn.send(messaggio)
 
-        if datastringa == "CIFRA ASIMMETRICA":
+        if datastringa == "Asymmetric Cryptography":
             nomefile = conn.recv(1024)
             socket_to_server.send(nomefile)
 
@@ -52,6 +52,6 @@ while 1:
             socket_to_server.send(key)
             message = socket_to_server.recv(1024)
             conn.send(message)
-            print("I dati sono stai inviati al Client")
+            print("The data has been sent to the Client")
 
     conn.close()
